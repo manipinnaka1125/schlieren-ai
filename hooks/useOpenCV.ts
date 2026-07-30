@@ -9,13 +9,15 @@ export function useOpenCV() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    if (window.cv?.Mat) {
+    const cv = window.cv as any;
+
+    if (cv?.Mat) {
       queueMicrotask(() => setIsReady(true));
       return;
     }
 
-    if (window.cv?.then) {
-      void Promise.resolve(window.cv).then((cvRuntime) => {
+    if (cv?.then) {
+      cv.then((cvRuntime: any) => {
         if (cvRuntime?.Mat) {
           queueMicrotask(() => setIsReady(true));
         }
@@ -29,8 +31,10 @@ export function useOpenCV() {
 
     if (existingScript) {
       const check = setInterval(() => {
-        if (window.cv?.then) {
-          void Promise.resolve(window.cv).then((cvRuntime) => {
+        const cv = window.cv as any;
+
+        if (cv?.then) {
+          cv.then((cvRuntime: any) => {
             if (cvRuntime?.Mat) {
               queueMicrotask(() => setIsReady(true));
               clearInterval(check);
@@ -47,8 +51,10 @@ export function useOpenCV() {
     script.async = true;
 
     script.onload = () => {
-      if (window.cv?.then) {
-        void Promise.resolve(window.cv).then((cvRuntime) => {
+      const cv = window.cv as any;
+
+      if (cv?.then) {
+        cv.then((cvRuntime: any) => {
           if (cvRuntime?.Mat) {
             queueMicrotask(() => setIsReady(true));
           }
