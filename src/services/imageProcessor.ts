@@ -4,13 +4,23 @@ import type { OpenCVRuntime } from "@/types/opencv.d";
 import { loadImageElement } from "@/utils/canvas";
 
 async function loadImageFromFile(file: File): Promise<HTMLImageElement> {
-  const objectUrl = URL.createObjectURL(file);
+  const dataUrl = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
 
-  try {
-    return await loadImageElement(objectUrl);
-  } finally {
-    URL.revokeObjectURL(objectUrl);
-  }
+    reader.onload = () => {
+      if (typeof reader.result !== "string") {
+        reject(new Error("Failed to read image file."));
+        return;
+      }
+
+      resolve(reader.result);
+    };
+
+    reader.onerror = () => reject(new Error("Failed to read image file."));
+    reader.readAsDataURL(file);
+  });
+
+  return loadImageElement(dataUrl);
 }
 
 export async function processImage(

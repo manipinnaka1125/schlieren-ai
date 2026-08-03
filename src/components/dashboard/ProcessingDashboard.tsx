@@ -10,8 +10,8 @@ interface Props {
 
 function MetricCard({ label, value }: { label: string; value: string }) {
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-950/70 p-5 shadow-lg shadow-slate-950/20">
-      <p className="text-xs uppercase tracking-[0.35em] text-slate-500">{label}</p>
+    <div className="rounded-2xl border border-white/10 bg-slate-950/70 p-4 shadow-lg shadow-slate-950/20">
+      <p className="text-[11px] uppercase tracking-[0.35em] text-slate-500">{label}</p>
       <p className="mt-3 text-2xl font-semibold text-white">{value}</p>
     </div>
   );
@@ -20,11 +20,14 @@ function MetricCard({ label, value }: { label: string; value: string }) {
 export default function ProcessingDashboard({ result }: Props) {
   if (!result?.success || !result.metrics) {
     return (
-      <section className="rounded-[2rem] border border-dashed border-white/10 bg-white/[0.03] p-6 text-slate-300">
-        <p className="text-xs uppercase tracking-[0.3em] text-blue-200">
+      <section
+        className="border border-dashed border-white/10 p-6 text-center text-slate-300 sm:text-left"
+        style={{ borderRadius: "1.75rem", backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+      >
+        <p className="text-[11px] uppercase tracking-[0.3em] text-blue-200">
           Dashboard preview
         </p>
-        <h3 className="mt-2 text-xl font-semibold text-white">
+        <h3 className="mt-2 text-lg font-semibold text-white md:text-xl">
           Metrics will show after upload.
         </h3>
         <p className="mt-2 text-sm leading-7 text-slate-400">
@@ -42,11 +45,14 @@ export default function ProcessingDashboard({ result }: Props) {
       animate={{ opacity: 1, y: 0 }}
       className="space-y-6"
     >
-      <div className="rounded-[2rem] border border-white/10 bg-white/[0.03] p-6 backdrop-blur">
-        <p className="text-xs uppercase tracking-[0.3em] text-blue-200">
+      <div
+        className="border border-white/10 p-5 text-center backdrop-blur sm:text-left"
+        style={{ borderRadius: "1.75rem", backgroundColor: "rgba(255, 255, 255, 0.05)" }}
+      >
+        <p className="text-[11px] uppercase tracking-[0.3em] text-blue-200">
           Live dashboard
         </p>
-        <h3 className="mt-2 text-2xl font-semibold text-white">
+        <h3 className="mt-2 text-xl font-semibold text-white">
           Analysis summary
         </h3>
       </div>

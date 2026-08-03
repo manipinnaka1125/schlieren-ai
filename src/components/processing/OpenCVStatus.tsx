@@ -1,7 +1,6 @@
 "use client";
 
 import type { IconType } from "react-icons";
-import { motion } from "framer-motion";
 import { useOpenCV } from "../../../hooks/useOpenCV";
 
 interface Props {
@@ -19,21 +18,20 @@ export default function OpenCVStatus({
 
   return (
     <section className="mx-auto max-w-7xl px-6 py-10">
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-8 shadow-2xl shadow-slate-950/20"
+      <div
+        className="mx-auto max-w-3xl border border-white/10 bg-slate-950/80 p-6 text-center shadow-2xl shadow-slate-950/20 sm:p-8"
+        style={{ borderRadius: "1.75rem" }}
       >
-        <div className="flex items-start gap-4">
+        <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start sm:gap-4 sm:text-left">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-500/10 text-blue-200 ring-1 ring-blue-400/20">
             {Icon ? <Icon className="animate-spin" /> : <span className="h-3 w-3 rounded-full bg-blue-300" />}
           </div>
-          <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-blue-200">
+          <div className="max-w-2xl">
+            <p className="text-[11px] uppercase tracking-[0.3em] text-blue-200">
               OpenCV loader
             </p>
             <h2 className="mt-2 text-2xl font-semibold text-white">{loaded ? "Runtime ready" : title}</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-400">{loaded ? "The browser OpenCV engine is ready and the analyzer can be used immediately." : description}</p>
+            <p className="mt-2 text-sm leading-7 text-slate-400">{loaded ? "The browser OpenCV engine is ready and the analyzer can be used immediately." : description}</p>
           </div>
         </div>
 
@@ -46,7 +44,7 @@ export default function OpenCVStatus({
             Browser engine loaded
           </div>
         )}
-      </motion.div>
+      </div>
     </section>
   );
 }

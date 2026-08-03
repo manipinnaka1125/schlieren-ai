@@ -2,7 +2,6 @@ export interface EngineeringInputs {
   temperature: number;
   pressure: number;
   gasConstant: number;
-  gamma: number;
 }
 
 export interface EngineeringOutputs {

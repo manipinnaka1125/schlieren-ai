@@ -49,9 +49,12 @@ function OutputCard({ label, value }: { label: string; value: string }) {
 
 export default function EngineeringPanel({ inputs, outputs, onChange }: Props) {
   return (
-    <section className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-5 shadow-2xl shadow-slate-950/30 backdrop-blur">
-      <div className="mb-4">
-        <p className="text-xs uppercase tracking-[0.3em] text-blue-200">
+    <section
+      className="border border-white/10 bg-slate-950/80 p-5 shadow-2xl shadow-slate-950/30 backdrop-blur"
+      style={{ borderRadius: "1.75rem" }}
+    >
+      <div className="mb-4 text-center sm:text-left">
+        <p className="text-[11px] uppercase tracking-[0.3em] text-blue-200">
           Engineering inputs
         </p>
         <h2 className="mt-2 text-xl font-semibold text-white">
@@ -59,9 +62,9 @@ export default function EngineeringPanel({ inputs, outputs, onChange }: Props) {
         </h2>
       </div>
 
-      <div className="space-y-5 rounded-3xl border border-white/10 bg-white/[0.03] p-4">
+      <div className="space-y-5 rounded-3xl border border-white/10 bg-white/3 p-4">
         <div>
-          <p className="text-sm font-semibold text-white">Inputs</p>
+          <p className="text-center text-sm font-semibold text-white sm:text-left">Inputs</p>
           <div className="mt-4 grid gap-3 md:grid-cols-2 xl:grid-cols-1">
             <Field
               label="Temperature (K)"
@@ -69,7 +72,7 @@ export default function EngineeringPanel({ inputs, outputs, onChange }: Props) {
               onChange={(value) => onChange("temperature", value)}
             />
             <Field
-              label="Pressure (Pa)"
+              label="Pressure (psi)"
               value={inputs.pressure}
               onChange={(value) => onChange("pressure", value)}
             />
@@ -78,23 +81,18 @@ export default function EngineeringPanel({ inputs, outputs, onChange }: Props) {
               value={inputs.gasConstant}
               onChange={(value) => onChange("gasConstant", value)}
             />
-            <Field
-              label="Gamma"
-              value={inputs.gamma}
-              onChange={(value) => onChange("gamma", value)}
-            />
           </div>
         </div>
 
         <div>
-          <p className="text-sm font-semibold text-white">Outputs</p>
+          <p className="text-center text-sm font-semibold text-white sm:text-left">Outputs</p>
           <div className="mt-4 grid gap-3 sm:grid-cols-2 xl:grid-cols-2">
             <OutputCard label="Mach Number" value={outputs.machNumber.toFixed(2)} />
             <OutputCard label="Density" value={`${outputs.density.toFixed(3)} kg/m³`} />
             <OutputCard label="Velocity" value={`${outputs.velocity.toFixed(1)} m/s`} />
             <OutputCard
               label="Static Pressure"
-              value={`${outputs.staticPressure.toFixed(0)} Pa`}
+              value={`${outputs.staticPressure.toFixed(2)} psi`}
             />
             <OutputCard
               label="Dynamic Pressure"

@@ -3,14 +3,18 @@ import type {
   EngineeringOutputs,
 } from "@/types/engineering";
 
+const PSI_TO_PASCAL = 6894.757293168;
+const DEFAULT_GAMMA = 1.4;
+
 export function computeEngineeringOutputs(
   inputs: EngineeringInputs,
   shockAngleDeg: number
 ): EngineeringOutputs {
-  const { temperature, pressure, gasConstant, gamma } = inputs;
+  const { temperature, pressure, gasConstant } = inputs;
+  const pressureInPascal = pressure * PSI_TO_PASCAL;
 
-  const density = pressure / (gasConstant * temperature);
-  const speedOfSound = Math.sqrt(gamma * gasConstant * temperature);
+  const density = pressureInPascal / (gasConstant * temperature);
+  const speedOfSound = Math.sqrt(DEFAULT_GAMMA * gasConstant * temperature);
 
   const shockAngleRad = (shockAngleDeg * Math.PI) / 180;
   const sinAngle = Math.sin(shockAngleRad);

@@ -18,14 +18,13 @@ const defaultInputs: EngineeringInputs = {
   temperature: DEFAULT_ENGINEERING_INPUTS.temperature,
   pressure: DEFAULT_ENGINEERING_INPUTS.pressure,
   gasConstant: DEFAULT_ENGINEERING_INPUTS.gasConstant,
-  gamma: DEFAULT_ENGINEERING_INPUTS.gamma,
 };
 
 export default function AnalysisWorkspace() {
   const [selectedImage, setSelectedImage] = useState<UploadedImage | null>(null);
   const [result, setResult] = useState<ProcessingResult | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [activeStage, setActiveStage] = useState("Waiting for image");
+  const [activeStage, setActiveStage] = useState("Waiting for upload");
   const [inputs, setInputs] = useState<EngineeringInputs>(defaultInputs);
 
   const handleImageSelected = (image: UploadedImage | null) => {
@@ -34,7 +33,7 @@ export default function AnalysisWorkspace() {
     if (!image) {
       setResult(null);
       setIsProcessing(false);
-      setActiveStage("Waiting for image");
+      setActiveStage("Waiting for upload");
     }
   };
 
@@ -98,25 +97,26 @@ export default function AnalysisWorkspace() {
         : "border-blue-400/20 bg-blue-500/10 text-blue-200";
 
   return (
-    <section id="analyzer" className="mx-auto max-w-7xl space-y-8 px-6 py-16">
+    <section id="upload" className="mx-auto max-w-7xl space-y-6 px-6 py-12 lg:py-14">
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        className="rounded-[2rem] border border-white/10 bg-slate-950/80 p-5 shadow-2xl shadow-slate-950/30 backdrop-blur"
+        className="rounded-[1.75rem] border border-white/10 bg-slate-950/75 p-5 shadow-2xl shadow-slate-950/25 backdrop-blur"
       >
-        <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] text-blue-200">
+        <div className="flex flex-col gap-4 text-center md:flex-row md:items-center md:justify-between md:text-left">
+          <div className="mx-auto max-w-2xl md:mx-0">
+            <p className="text-[11px] uppercase tracking-[0.35em] text-blue-200">
               Browser-only OpenCV pipeline
             </p>
-            <h2 className="mt-2 text-2xl font-semibold text-white md:text-3xl">
-              Analysis workspace
-            </h2>
+            <h2 className="mt-2 text-2xl font-semibold text-white md:text-[2rem]">Upload and process</h2>
+            <p className="mt-2 max-w-2xl text-sm leading-7 text-slate-400">
+              Choose an image and the browser will process it locally, then show the stages, measurements, and report.
+            </p>
           </div>
 
-          <div className={`rounded-2xl border px-4 py-3 text-sm ${statusTone}`}>
+          <div className={`mx-auto rounded-2xl border px-4 py-3 text-sm md:mx-0 ${statusTone}`}>
             <p className="text-xs uppercase tracking-[0.3em] text-current/75">
-              Status
+              Current step
             </p>
             <p className="mt-1 font-semibold text-white">{activeStage}</p>
           </div>
@@ -124,7 +124,7 @@ export default function AnalysisWorkspace() {
       </motion.div>
 
       <div className="space-y-8">
-        <div className="space-y-8">
+        <div className="space-y-6">
           <ImageUploader onImageSelected={handleImageSelected} />
 
           <ProcessingDashboard result={result} />
@@ -132,7 +132,7 @@ export default function AnalysisWorkspace() {
           {stageImages.length > 0 ? <ImageGallery images={stageImages} /> : null}
         </div>
 
-        <div className="grid gap-8 xl:grid-cols-2">
+        <div className="grid gap-6 xl:grid-cols-2 2xl:grid-cols-[1.05fr_0.95fr]">
           <EngineeringPanel
             inputs={inputs}
             outputs={engineeringOutputs}
